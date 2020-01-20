@@ -2,16 +2,13 @@
 # for The ORNL Nightcrawler board
 # this is based on fmuv3
 
-#this seems to have something to do with the 5611 baro on SPI
-#define HAL_CHIBIOS_ARCH_CUBEBLACK 1
-
 # MCU class and specific type
 MCU STM32F4xx STM32F427xx
 
 # We set a specific HAL_BOARD_SUBTYPE, allowing for custom config in
 # drivers. For this to be used the subtype needs to be added to
 # AP_HAL/AP_HAL_Boards.h as well.
-# define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_CHIBIOS_FMUV3
+define CONFIG_HAL_BOARD_SUBTYPE HAL_BOARD_SUBTYPE_CHIBIOS_FMUV3
 
 # Now we need to specify the APJ_BOARD_ID. This is the ID that the
 # bootloader presents to GCS software so it knows if this firmware is
@@ -69,7 +66,6 @@ FLASH_SIZE_KB 2048
 # is for UART7 (SD7 == "serial device 7" in ChibiOS).
 #STDOUT_SERIAL SD7
 #STDOUT_BAUDRATE 57600
-
 
 # Now define the order that I2C buses are presented in the hal.i2c API
 # in ArduPilot. For historical reasons inherited from HAL_PX4 the
@@ -150,7 +146,6 @@ PA1 UART4_RX UART4
 # a scale factor of 1.0 and connected on ADC1. The pin number this
 # maps to in hal.adc is automatically determined using the datasheet
 # tables in STM32F427xx.py.
-
 PA2 BATT_VOLTAGE_SENS ADC1 SCALE(1)
 PA3 BATT_CURRENT_SENS ADC1 SCALE(1)
 
@@ -160,14 +155,12 @@ PA4 VDD_5V_SENS ADC1 SCALE(2)
 # Now the first SPI bus. At minimum you need SCK, MISO and MOSI pin
 definitions. You can add speed modifiers if you want them, otherwise
 the defaults for the peripheral class are used.
-
 PA5 SPI1_SCK SPI1
 PA6 SPI1_MISO SPI1
 PA7 SPI1_MOSI SPI1
 
 # This defines an output pin which will default to output LOW. It is a
 # pin that enables peripheral power on this board.
-
 PA8 VDD_5V_PERIPH_EN OUTPUT LOW
 
 # This is the pin that senses USB being connected. It is an input pin
@@ -371,7 +364,7 @@ SPIDEV bmi088_a       SPI4 DEVID2  ACCEL_EXT_CS MODE3 10*MHZ 10*MHZ
 #SPIDEV clock8   SPI4 DEVID5  MPU_EXT_CS   MODE0  8*MHZ 8*MHZ     # gives 5.5MHz
 #SPIDEV clock16  SPI4 DEVID5  MPU_EXT_CS   MODE0  16*MHZ 16*MHZ   # gives 10.6MHz
 
-# three IMUs
+# three IMUs (Assuming Text on board ("Mount This Side Up") is up and Arrow points forward
 IMU Invensensev2 SPI:icm20948 ROTATION_NONE
 IMU Invensensev2 SPI:icm20948_ext ROTATION_ROLL_180_YAW_90
 IMU BMI088       SPI:bmi088_a SPI:bmi088_g ROTATION_ROLL_180
@@ -383,7 +376,7 @@ BARO DPS280      SPI:dps310
 BARO DPS280      SPI:dps310_ext
 
 # compass as part of ICM20948
-COMPASS AK09916:probe_ICM20948 0 ROTATION_ROLL_180
+COMPASS AK09916:probe_ICM20948 0 ROTATION_YAW_90
 
 # Nnow some defines for logging and terrain data files.
 define HAL_BOARD_LOG_DIRECTORY "/APM/LOGS"
@@ -482,3 +475,5 @@ undef PB0
 undef PB1
 PB0 PB0_ADC ADC1 SCALE(1)
 PB1 PB1_ADC ADC1 SCALE(1)
+
+undef HAL_CHIBIOS_ARCH_FMUV3
