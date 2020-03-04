@@ -378,6 +378,9 @@ BARO DPS280      SPI:dps310_ext
 # compass as part of ICM20948
 COMPASS AK09916:probe_ICM20948 0 ROTATION_YAW_90
 
+# also probe for external compasses
+define HAL_PROBE_EXTERNAL_I2C_COMPASSES
+
 # Nnow some defines for logging and terrain data files.
 define HAL_BOARD_LOG_DIRECTORY "/APM/LOGS"
 define HAL_BOARD_TERRAIN_DIRECTORY "/APM/TERRAIN"
