@@ -5,7 +5,7 @@
 MCU STM32F4xx STM32F427xx
 
 # board ID for firmware load
-APJ_BOARD_ID 1006
+APJ_BOARD_ID 1020
 
 # crystal frequency
 OSCILLATOR_HZ 24000000
@@ -28,7 +28,7 @@ FLASH_RESERVE_START_KB 0
 # USB setup
 USB_VENDOR 0x0483 # ST
 USB_PRODUCT 0x5740
-USB_STRING_MANUFACTURER "ArduPilot"
+USB_STRING_MANUFACTURER "ORNL"
 USB_STRING_SERIAL  "%SERIAL%"
 
 # baudrate to run bootloader at on uarts
